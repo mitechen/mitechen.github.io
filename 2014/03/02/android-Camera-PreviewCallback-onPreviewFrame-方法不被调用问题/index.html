@@ -4,17 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>绣花枕 扯闲篇</title>
+  <title>android Camera.PreviewCallback onPreviewFrame()方法不被调用问题 | 绣花枕 扯闲篇</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="绣花枕 扯闲篇">
-<meta property="og:url" content="http://mitechen.github.io/index.html">
+  <meta name="description" content="想要在android中捕获摄像头的没帧数据。基本用发都是调用setPreviewCallback方法：
+1mCamera.setPreviewCallback(new PreviewCallback());
+PreviewCallback的定义为：
+123456class PreviewCallback implements Camera.PreviewCallback&amp;#123;    @Ove">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android Camera.PreviewCallback onPreviewFrame()方法不被调用问题">
+<meta property="og:url" content="http://mitechen.github.io/2014/03/02/android-Camera-PreviewCallback-onPreviewFrame-方法不被调用问题/index.html">
 <meta property="og:site_name" content="绣花枕 扯闲篇">
-<meta property="og:description">
+<meta property="og:description" content="想要在android中捕获摄像头的没帧数据。基本用发都是调用setPreviewCallback方法：
+1mCamera.setPreviewCallback(new PreviewCallback());
+PreviewCallback的定义为：
+123456class PreviewCallback implements Camera.PreviewCallback&amp;#123;    @Ove">
+<meta property="og:updated_time" content="2016-04-09T06:59:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="绣花枕 扯闲篇">
-<meta name="twitter:description">
+<meta name="twitter:title" content="android Camera.PreviewCallback onPreviewFrame()方法不被调用问题">
+<meta name="twitter:description" content="想要在android中捕获摄像头的没帧数据。基本用发都是调用setPreviewCallback方法：
+1mCamera.setPreviewCallback(new PreviewCallback());
+PreviewCallback的定义为：
+123456class PreviewCallback implements Camera.PreviewCallback&amp;#123;    @Ove">
   
     <link rel="alternative" href="/atom.xml" title="绣花枕 扯闲篇" type="application/atom+xml">
   
@@ -184,132 +194,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-留个念想" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/09/留个念想/" class="article-date">
-  	<time datetime="2016-04-09T06:57:56.000Z" itemprop="datePublished">2016-04-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/09/留个念想/">留个念想</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一转眼已经奔四了，程序员也干了10来年了。活到我这个年纪，如果说对世界，对人生或者我所在这个行业没点看法，那只能说是白活了。<br>由于小时候作文没好好学，自己的写作欲望也不高，前些年的搞得博客都没坚持下去。<br>去年下半年，儿子降生，心境上产生了些许变化。把博客重开起来，争取留下些文字记录，为自己老了的时候留个念想。<br>至于自己的表达能力有限，前言不搭后语之类的毛病，也顾不了那许多了。</p>
-<p>我们这一代人（80-90后）生活在一个剧烈变动的年代。由于互联网的出现，改变了这个世界的信息组织方式。前人记录的文字表格，以及当下产生的种种信息都被组织成了<code>关系数据库</code>里的一条条记录。程序员的工作就是描述，加工和组织这些信息。</p>
-<p>在我看来，目前的信息组织和展现形式（不论是web还是app）都是相当原始的。信息的获取有以下步骤 </p>
-<h2 id="1-搜索-gt-2-在结果中查找-gt-3-找到信息-gt-4-验证-验证不通过则回到步骤2-gt-5-获取信息。"><a href="#1-搜索-gt-2-在结果中查找-gt-3-找到信息-gt-4-验证-验证不通过则回到步骤2-gt-5-获取信息。" class="headerlink" title="1.搜索-&gt;2.在结果中查找-&gt;3.找到信息-&gt;4.验证(验证不通过则回到步骤2)-&gt;5.获取信息。"></a>1.搜索-&gt;2.在结果中查找-&gt;3.找到信息-&gt;4.验证(验证不通过则回到步骤2)-&gt;5.获取信息。</h2><p>未来的信息获取形式应该是更加智能的方式。也就是数据不再是死的数据，而是<code>数据+算法</code>。普通人获取信息的步骤应该是</p>
-<h2 id="1-搜索-gt-2-获取原始数据-gt-3-选择信息组织方式-gt-4-信息通过自身算法自己组织展现形式并展示给用户"><a href="#1-搜索-gt-2-获取原始数据-gt-3-选择信息组织方式-gt-4-信息通过自身算法自己组织展现形式并展示给用户" class="headerlink" title="1.搜索-&gt;2.获取原始数据-&gt;3.选择信息组织方式-&gt;4.信息通过自身算法自己组织展现形式并展示给用户"></a>1.搜索-&gt;2.获取原始数据-&gt;3.选择信息组织方式-&gt;4.信息通过自身算法自己组织展现形式并展示给用户</h2><p>也就是说数据和算法将是结合在一起的。而数据展示平台将不再重要，更重要的是信息本身。<br>我坚信这种数据获取的方式能在我有生之年到来，到那个时候，人们再回头看现在的谷歌和百度，将会很难想想以前人们是怎么在这么原始的状态下获取数据的。</p>
-<p>扯闲篇—</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/扯闲篇/">扯闲篇</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/08/hello-world/" class="article-date">
-  	<time datetime="2016-04-08T10:29:51.000Z" itemprop="datePublished">2016-04-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/08/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-Camera-PreviewCallback-onPreviewFrame-方法不被调用问题" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-android-Camera-PreviewCallback-onPreviewFrame-方法不被调用问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2014/03/02/android-Camera-PreviewCallback-onPreviewFrame-方法不被调用问题/" class="article-date">
@@ -325,12 +210,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/02/android-Camera-PreviewCallback-onPreviewFrame-方法不被调用问题/">android Camera.PreviewCallback onPreviewFrame()方法不被调用问题</a>
+    <h1 class="article-title" itemprop="name">
+      android Camera.PreviewCallback onPreviewFrame()方法不被调用问题
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/绣花枕/">绣花枕</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -346,24 +242,44 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/绣花枕/">绣花枕</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/08/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
 
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
@@ -371,8 +287,7 @@
 
 
 
-  
-  
+
 </div>
       <footer id="footer">
   <div class="outer">
@@ -396,8 +311,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
